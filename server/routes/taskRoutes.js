@@ -6,11 +6,17 @@ const {
   updateTask,
   deleteTask,
 } = require("../controllers/taskController");
+const validate = require("../utils/validate");
+const { taskSchema, taskSchemaPatch } = require("../validation/taskSchema");
 
 const router = express.Router();
 
-router.route("/").get(getAllTasks).post(createTask);
+router.route("/").get(getAllTasks).post(validate(taskSchema), createTask);
 
-router.route("/:id").get(getSingleTask).patch(updateTask).delete(deleteTask);
+router
+  .route("/:id")
+  .get(getSingleTask)
+  .patch(validate(taskSchemaPatch), updateTask)
+  .delete(deleteTask);
 
 module.exports = router;
