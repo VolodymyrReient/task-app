@@ -86,6 +86,11 @@ exports.getTaskStats = catchAsync(async (req, res, next) => {
         count: 1,
       },
     },
+    {
+      $sort: {
+        status: 1,
+      },
+    },
   ];
 
   const result = await Task.aggregate(pipeline);

@@ -18,6 +18,8 @@ export type FormTypes = {
   complexity: ComplexityType;
 };
 
-export type ErrorType = {
-  message: string;
+export type StatsProps = {
+  count: number;
+  status: StatusType;
+  percentage: number;
 };

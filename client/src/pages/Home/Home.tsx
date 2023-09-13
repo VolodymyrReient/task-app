@@ -4,10 +4,11 @@ import { Button, Row, Empty } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { getAllTasks } from "../../api/task";
 import { TasksProps } from "../../types";
-import { EmptyWrapper, Footer, Wrapper } from "./styled-components";
+import { EmptyWrapper, Footer, TopWrapper, Wrapper } from "./styled-components";
 import Loader from "../../components/Loader/Loader";
 import TaskCard from "../../components/TaskCard";
 import CreateModal from "../../components/CreateModal";
+import PieChats from "../../components/PieChats";
 
 const DEFAULT_LIMIT = 6;
 
@@ -45,14 +46,17 @@ const Home = () => {
 
   return (
     <Wrapper>
-      <Button
-        icon={<PlusOutlined />}
-        type="primary"
-        onClick={() => setShowCreateModal(true)}
-      >
-        Create Task
-      </Button>
+      <TopWrapper>
+        <Button
+          icon={<PlusOutlined />}
+          type="primary"
+          onClick={() => setShowCreateModal(true)}
+        >
+          Create Task
+        </Button>
 
+        <PieChats />
+      </TopWrapper>
       <Row gutter={[16, 16]} style={{ marginTop: 30 }} justify="center">
         {isLoading ? (
           <Loader />

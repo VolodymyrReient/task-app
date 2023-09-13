@@ -17,3 +17,11 @@ export const EmptyWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const TopWrapper = styled("div")`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 10px;
+`;

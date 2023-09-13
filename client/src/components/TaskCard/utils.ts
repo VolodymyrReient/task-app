@@ -7,7 +7,7 @@ export const getStatusTagColor = (status: StatusType) => {
     case "in progress":
       return "processing";
     default:
-      return "default";
+      return "cyan";
   }
 };
 

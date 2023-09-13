@@ -11,6 +11,7 @@ const taskLinkWithID = (id: string) => {
 };
 
 const createLink = `${apiLink}/tasks`;
+const statsLink = `${apiLink}/tasks/stats`;
 
 export const getAllTasks = async (limit: number) => {
   const tasks = await axios.get(allTasksLink(limit));
@@ -34,4 +35,10 @@ export const getSingleTask = async (id: string) => {
 
 export const updateTask = async (id: string, data: FormTypes) => {
   return await axios.patch(taskLinkWithID(id), data);
+};
+
+export const getTasksStats = async () => {
+  const stats = await axios.get(statsLink);
+
+  return stats?.data;
 };
