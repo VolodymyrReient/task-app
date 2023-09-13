@@ -4,8 +4,9 @@
 
 1. Navigate to the server directory: `cd server`
 2. Install Node modules: `npm install`
-3. Start the server: `npm start`
-4. Access the server at: `http://localhost:3000`
+3. Start docker containers: `docker-compose up`
+4. Start the server: `npm start`
+5. Access the server at: `http://localhost:3000`
 
 ## Client
 
