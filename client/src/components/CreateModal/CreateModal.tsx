@@ -1,5 +1,6 @@
 import { Modal, message } from "antd";
 import TaskForm from "../TaskForm/TaskForm";
+import { FormikHelpers } from "formik";
 import { AxiosError } from "axios";
 import { useQueryClient } from "@tanstack/react-query";
 import { FormTypes } from "../../types";
@@ -26,10 +27,14 @@ const CreateModal = ({ isModalOpen, setShowCreateModal }: CreateModalProps) => {
     setShowCreateModal(false);
   };
 
-  const onSubmit = async (values: FormTypes) => {
+  const onSubmit = async (
+    values: FormTypes,
+    actions: FormikHelpers<FormTypes>
+  ) => {
     try {
       await createTask(values);
       queryClient.invalidateQueries();
+      actions.resetForm();
       closeModal();
     } catch (e: unknown) {
       if (e instanceof AxiosError) {

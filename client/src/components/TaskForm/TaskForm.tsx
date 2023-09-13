@@ -1,4 +1,4 @@
-import { Formik } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import { Form, Input, SubmitButton, Select } from "formik-antd";
 import { Row, Col } from "antd";
 import { FormTypes } from "../../types";
@@ -7,7 +7,7 @@ import { validationSchema } from "./validationSchema";
 
 type TaskFormProps = {
   initialValues: FormTypes;
-  onSubmit: (values: FormTypes) => void;
+  onSubmit: (values: FormTypes, actions: FormikHelpers<FormTypes>) => void;
 };
 
 const TaskForm = ({ initialValues, onSubmit }: TaskFormProps) => {

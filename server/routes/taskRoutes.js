@@ -5,6 +5,7 @@ const {
   getSingleTask,
   updateTask,
   deleteTask,
+  getTaskStats,
 } = require("../controllers/taskController");
 const validate = require("../utils/validate");
 const { taskSchema, taskSchemaPatch } = require("../validation/taskSchema");
@@ -12,6 +13,8 @@ const { taskSchema, taskSchemaPatch } = require("../validation/taskSchema");
 const router = express.Router();
 
 router.route("/").get(getAllTasks).post(validate(taskSchema), createTask);
+
+router.route("/stats").get(getTaskStats);
 
 router
   .route("/:id")

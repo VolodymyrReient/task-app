@@ -32,6 +32,8 @@ exports.getSingleTask = catchAsync(async (req, res, next) => {
 });
 
 exports.createTask = catchAsync(async (req, res, next) => {
+  req.body.createdAt = Date.now();
+
   const newTask = await Task.create(req.body);
 
   res.status(201).json({ status: "success", data: { task: newTask } });
@@ -66,5 +68,39 @@ exports.deleteTask = catchAsync(async (req, res, next) => {
 
   res.status(204).json({
     data: null,
+  });
+});
+
+exports.getTaskStats = catchAsync(async (req, res, next) => {
+  const pipeline = [
+    {
+      $group: {
+        _id: "$status",
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        status: "$_id",
+        count: 1,
+      },
+    },
+  ];
+
+  const result = await Task.aggregate(pipeline);
+
+  let totalTasks = 0;
+  result.forEach((status) => {
+    totalTasks += status.count;
+  });
+
+  result.forEach((status) => {
+    status.percentage = +((status.count / totalTasks) * 100).toFixed(2);
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: { result },
   });
 });
