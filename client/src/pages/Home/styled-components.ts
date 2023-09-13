@@ -5,10 +5,12 @@ export const Wrapper = styled("div")`
 `;
 
 export const Footer = styled("div")`
-  margin-block: 10px;
+  margin-block: 20px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 10px;
 `;
 
 export const EmptyWrapper = styled.div`

@@ -10,22 +10,22 @@ import TaskCard from "../../components/TaskCard";
 import CreateModal from "../../components/CreateModal";
 import PieChats from "../../components/PieChats";
 
-const DEFAULT_LIMIT = 6;
+const DEFAULT_LIMIT = 12;
 
 const Home = () => {
-  const [limit, setLimit] = useState(DEFAULT_LIMIT);
+  const [page, setPage] = useState(1);
   const [hasMoreItems, setHasMoreItems] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const { data, isLoading } = useInfiniteQuery(
-    ["tasks", limit],
+    ["tasks", DEFAULT_LIMIT, page],
     async () => {
-      return await getAllTasks(limit);
+      return await getAllTasks(DEFAULT_LIMIT, page);
     },
     {
       onSuccess: (data) => {
         const totalCount = data?.pages[0]?.data?.totalCount;
-        if (totalCount > limit) {
+        if (totalCount / DEFAULT_LIMIT > page) {
           setHasMoreItems(true);
         } else setHasMoreItems(false);
       },
@@ -40,8 +40,14 @@ const Home = () => {
     return acc;
   }, []);
 
-  const loadMore = () => {
-    setLimit((prev) => prev + DEFAULT_LIMIT);
+  const nextPage = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  const prevPage = () => {
+    if (page !== 1) {
+      setPage((prev) => prev - 1);
+    }
   };
 
   return (
@@ -71,13 +77,19 @@ const Home = () => {
         )}
       </Row>
 
-      {hasMoreItems && (
-        <Footer>
-          <Button type="primary" disabled={!hasMoreItems} onClick={loadMore}>
-            Load more
+      <Footer>
+        {page > 1 && (
+          <Button type="primary" disabled={page === 1} onClick={prevPage}>
+            Prev page
           </Button>
-        </Footer>
-      )}
+        )}
+
+        {hasMoreItems && (
+          <Button type="primary" disabled={!hasMoreItems} onClick={nextPage}>
+            Next page
+          </Button>
+        )}
+      </Footer>
 
       <CreateModal
         isModalOpen={showCreateModal}

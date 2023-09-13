@@ -2,8 +2,8 @@ import axios from "axios";
 import { apiLink } from "./config";
 import { FormTypes } from "../types";
 
-const allTasksLink = (limit: number) => {
-  return `${apiLink}/tasks?limit=${limit}`;
+const allTasksLink = (limit: number, page: number) => {
+  return `${apiLink}/tasks?limit=${limit}&page=${page}`;
 };
 
 const taskLinkWithID = (id: string) => {
@@ -13,8 +13,8 @@ const taskLinkWithID = (id: string) => {
 const createLink = `${apiLink}/tasks`;
 const statsLink = `${apiLink}/tasks/stats`;
 
-export const getAllTasks = async (limit: number) => {
-  const tasks = await axios.get(allTasksLink(limit));
+export const getAllTasks = async (limit: number, page: number) => {
+  const tasks = await axios.get(allTasksLink(limit, page));
 
   return tasks;
 };
