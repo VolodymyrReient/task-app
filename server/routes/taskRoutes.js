@@ -8,18 +8,24 @@ const {
   getTaskStats,
 } = require("../controllers/taskController");
 const validate = require("../utils/validate");
-const { taskSchema, taskSchemaPatch } = require("../validation/taskSchema");
+const {
+  сreateTaskDtoSchema,
+  updateTaskDtoSchema,
+} = require("../validation/taskSchema");
 
 const router = express.Router();
 
-router.route("/").get(getAllTasks).post(validate(taskSchema), createTask);
+router
+  .route("/")
+  .get(getAllTasks)
+  .post(validate(сreateTaskDtoSchema), createTask);
 
 router.route("/stats").get(getTaskStats);
 
 router
   .route("/:id")
   .get(getSingleTask)
-  .patch(validate(taskSchemaPatch), updateTask)
+  .patch(validate(updateTaskDtoSchema), updateTask)
   .delete(deleteTask);
 
 module.exports = router;

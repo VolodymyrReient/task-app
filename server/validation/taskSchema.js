@@ -3,7 +3,7 @@ const yup = require("yup");
 const complexityValues = ["easy", "medium", "difficult"];
 const statusValues = ["new", "in progress", "done"];
 
-const taskSchema = yup.object({
+const сreateTaskDtoSchema = yup.object({
   body: yup.object({
     name: yup.string().required("Task name is required"),
     description: yup.string().required("Task description is required"),
@@ -18,7 +18,7 @@ const taskSchema = yup.object({
   }),
 });
 
-const taskSchemaPatch = yup.object({
+const updateTaskDtoSchema = yup.object({
   body: yup.object({
     name: yup.string(),
     description: yup.string(),
@@ -27,4 +27,4 @@ const taskSchemaPatch = yup.object({
   }),
 });
 
-module.exports = { taskSchema, taskSchemaPatch };
+module.exports = { сreateTaskDtoSchema, updateTaskDtoSchema };
