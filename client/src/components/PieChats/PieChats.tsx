@@ -35,8 +35,8 @@ const PieChats = () => {
             key={item.status}
             xs={8}
             sm={8}
-            md={8}
-            lg={6}
+            md={4}
+            lg={3}
             xl={getXlCol(result.length)}
           >
             <PieChat {...item} />
